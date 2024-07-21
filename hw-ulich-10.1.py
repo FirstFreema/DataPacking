@@ -1,4 +1,4 @@
-import json
+import pickle
 
 class CountryState:
     def __init__(self):
@@ -34,13 +34,13 @@ class CountryState:
             print(f"Страна '{country}' не найдена.")
 
     def save_data(self, filename):
-        with open(filename, 'w') as file:
-            json.dump(self.data, file)
+        with open(filename, 'wb') as file:
+            pickle.dump(self.data, file)
 
     def load_data(self, filename):
         try:
-            with open(filename, 'r') as file:
-                self.data = json.load(file)
+            with open(filename, 'rb') as file:
+                self.data = pickle.load(file)
         except FileNotFoundError:
             print(f"Файл '{filename}' не найден.")
 
@@ -64,6 +64,6 @@ print(country_state.get_country_by_capital('Berlin'))
 country_state.update_capital('Kazakhstan', 'Nur-Sultan')
 print(country_state.get_capital_by_country('Kazakhstan'))
 
-country_state.save_data('country_state.json')
+country_state.save_data('country_state.pickle')
 
-country_state.load_data('country_state.json')
+country_state.load_data('country_state.pickle')
